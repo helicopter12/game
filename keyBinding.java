@@ -12,9 +12,7 @@ public class keyBinding extends AbstractAction {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (cmd.equalsIgnoreCase("enter")) {
-            mainWindow.switchy = false;
-        }else{
-            mainWindow.switchy = false;
+            mainWindow.showStartMenu = false;
         }
     }
 }
