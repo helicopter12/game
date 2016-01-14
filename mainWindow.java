@@ -2,15 +2,13 @@
 //Authors: Ryan St. John, John Thornto
 //Date: 1/14/16
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseEvent;
-import java.awt.*;
 
-public class mainWindow extends JFrame implements MouseListener, KeyListener {
-    private static Image backgroundImage;
+public class mainWindow extends JFrame{
     public static  boolean switchy = true;
 
     public static void main(String[] args) {
@@ -28,47 +26,5 @@ public class mainWindow extends JFrame implements MouseListener, KeyListener {
         while(switchy){
             f.repaint();
         }
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent m) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent m) {
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent m) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent m) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent m) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent k) {
-        if (k.getKeyCode() == KeyEvent.VK_ENTER){
-            switchy = true;
-        }
-    }
-
-    @Override
-    public void keyTyped(KeyEvent k) {
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent k) {
-
     }
 }
