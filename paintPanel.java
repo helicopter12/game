@@ -1,24 +1,27 @@
-import javax.swing.*;
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.io.*;
-import java.util.Random;
+import javax.swing.JComponent;
+import java.awt.Image;
+import java.awt.Graphics;
+import java.awt.Color;
+
 
 public class paintPanel extends JComponent {
-    Image backgroundImage;
+    public static Image backgroundImage;
+    private double stepTick = 0;
+    public double rocketSpeedPercent = 100;
 
     public void paint(Graphics g) {
-        if(backgroundImage == null) {
-            try {
-                backgroundImage = ImageIO.read(new File("C:\\Users\\Ryan\\Desktop\\Pics\\space.jpg"));
-            } catch (java.io.IOException ex) {
-            }
+        //Draw the moving background - (Need a background that can be repeated)
+        g.drawImage((backgroundImage == null ? null : backgroundImage),(int)(stepTick <= (mainWindow.maxWidth - backgroundImage.getWidth(null)) ? stepTick = 0 : (stepTick = stepTick - ((rocketSpeedPercent/10000.0) * 5))), -10, null);
+
+        drawStartMenu(g);
+    }
+
+    public void drawStartMenu(Graphics g) {
+        if (mainWindow.showStartMenu == true) {
+            g.setColor(new Color(0,255,0,255));
+            g.drawString("Space Ride v1.0", (mainWindow.maxWidth / 2) - 50, (mainWindow.maxHeight / 2) - 10);
+            g.setColor(Color.white);
+            g.drawString("Press 'Enter' to play",(mainWindow.maxWidth / 2) - 60, (mainWindow.maxHeight / 2) + 10);
         }
-
-        g.drawImage(backgroundImage, 0, -10, null);
-
-        g.setColor(new Color(255,0,0,255));
-        Random rnd = new Random();
-        g.drawString("Press ENTER!!",rnd.nextInt(100), rnd.nextInt(100));
     }
 }
