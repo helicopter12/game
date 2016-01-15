@@ -5,13 +5,15 @@ import java.awt.Color;
 
 
 public class paintPanel extends JComponent {
-    public static Image backgroundImage;
+    public static Image backgroundImage, playerShip;
     private double stepTick = 0;
     public double rocketSpeedPercent = 100;
 
     public void paint(Graphics g) {
         //Draw the moving background - (Need a background that can be repeated)
         g.drawImage((backgroundImage == null ? null : backgroundImage),(int)(stepTick <= (mainWindow.maxWidth - backgroundImage.getWidth(null)) ? stepTick = 0 : (stepTick = stepTick - ((rocketSpeedPercent/10000.0) * 5))), -10, null);
+
+        g.drawImage((playerShip == null ? null : playerShip), localPlayer.location.x, localPlayer.location.y, null);
 
         drawStartMenu(g);
     }
