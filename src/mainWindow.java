@@ -15,7 +15,7 @@ public class mainWindow extends JFrame{
     public static final int maxWidth = 1000;
     public static final int maxHeight = 500;
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
 
         if (downloadBackgroundImage() && downloadShip() && downloadBullet() && downloadEnemyShip() && downloadPowerup()) {
             JFrame f = new JFrame();
