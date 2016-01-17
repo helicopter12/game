@@ -1,5 +1,5 @@
 //Title: 2D Java Spaceship Game
-//Authors: Ryan St. John, John Thornto
+//Authors: Ryan St. John, John Thornton
 //Date: 1/14/16
 
 import javax.imageio.ImageIO;
