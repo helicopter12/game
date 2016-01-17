@@ -15,6 +15,7 @@ public class keyBinding extends AbstractAction {
 
         if (cmd.equalsIgnoreCase("enter")) {
             mainWindow.showStartMenu = false;
+            System.exit(0);
         }else if (cmd.equalsIgnoreCase("fire")) {
             if (!listContains("fire")) {
                 keysDown.add("fire");
