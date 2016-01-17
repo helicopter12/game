@@ -3,8 +3,7 @@ package game;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
-
-import settings.Settings;
+import org.lwjgl.opengl.GL11;
 
 /*
  * Space Game OpenGL branch using lwjgl 2.x and Opengl 3.2 libraries
@@ -20,8 +19,12 @@ public class Game{
 		
 		while(!Display.isCloseRequested()){
 			
+			GL11.glClearColor(0, 0, 0, 0);
+			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+            GL11.glEnable(GL11.GL_DEPTH_TEST);
 			
-			
+            
+            
 			Display.update();
 		}
 	}
@@ -44,10 +47,10 @@ public class Game{
 				Display.setTitle("Space Game");
 				Display.create();
 			}else{
-				System.out.println("You already have an instance of the game running!");
+				System.err.println("You already have an instance of the game running!");
 			}
 		} catch (LWJGLException exception) {
-			System.out.println("Error while creating the window display.");
+			System.err.println("Error while creating the window display.");
 			if(Settings.enableInternalErrors){
 				exception.printStackTrace();
 			}
