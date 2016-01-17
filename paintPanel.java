@@ -1,19 +1,23 @@
-import com.sun.org.apache.xpath.internal.operations.Gt;
-
 import javax.swing.JComponent;
 import java.awt.Image;
 import java.awt.Graphics;
 import java.awt.Color;
 
 public class paintPanel extends JComponent {
-    public static Image backgroundImage, playerShip;
+    public static Image backgroundImage, playerShip, bullet, enemyShip, powerupBox;
     private double stepTick = 0;
-    public double rocketSpeedPercent = 100;
+    public static double shipSpeedPercent = 100;
 
     public void paint(Graphics g) {
 
         //Draw the moving background - (Need a background that can be repeated)
-        g.drawImage((backgroundImage == null ? null : backgroundImage),(int)(stepTick <= (mainWindow.maxWidth - backgroundImage.getWidth(null)) ? stepTick = 0 : (stepTick = stepTick - ((rocketSpeedPercent/1000.0) * 5))), -10, null);
+        g.drawImage((backgroundImage == null ? null : backgroundImage),(int)(stepTick <= (mainWindow.maxWidth - backgroundImage.getWidth(null)) ? stepTick = 0 : (stepTick = stepTick - ((shipSpeedPercent/1000.0) * 5))), -10, null);
+
+        //Draw enemies
+        enemyBots.drawEnemies(g);
+
+        //Draw Powerups
+        powerups.drawPowerups(g);
 
         //Draw the local player spaceship
         g.drawImage((playerShip == null ? null : playerShip), localPlayer.location.x, localPlayer.location.y, null);
@@ -23,6 +27,9 @@ public class paintPanel extends JComponent {
 
         //Draw the keys down for debugging
         drawKeysDown(g);
+
+        //Draw bullets
+        ammo.updateLocations(g);
     }
 
     public void drawStartMenu(Graphics g) {
@@ -39,7 +46,7 @@ public class paintPanel extends JComponent {
             int i = 20;
             for (String member : keyBinding.keysDown.getItems()) {
                 g.drawString(member, 10, i);
-                i+=20;
+                i += 20;
             }
         }
     }
