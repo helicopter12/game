@@ -8,16 +8,32 @@ public class localPlayer {
     {
         final String keys = keyBinding.getKeysAsString();
         if(keys.contains("a")){
-            location.x = location.x - sensitivity;
+            if(location.x > 0) {
+                location.x = location.x - sensitivity;
+            }
         }
         if(keys.contains("s")){
-            location.y = location.y + sensitivity;
+            if((location.y + paintPanel.playerShip.getHeight(null)) < mainWindow.maxHeight + 50) {
+                location.y = location.y + sensitivity;
+            }
         }
         if(keys.contains("w")){
-            location.y = location.y - sensitivity;
+            if(location.y > -75) {
+                location.y = location.y - sensitivity;
+            }
         }
         if(keys.contains("d")){
-            location.x = location.x + sensitivity;
+            if(location.x + paintPanel.playerShip.getWidth(null) < mainWindow.maxWidth) {
+                location.x = location.x + sensitivity;
+            }
+        }
+
+        if(keys.contains("fire")){
+            if(ammo.type.NORMAl.readyToFire()) {
+                Point pt = new Point((paintPanel.playerShip.getWidth(null) + location.x) - 60, (paintPanel.playerShip.getHeight(null) / 2) + location.y);
+                ammo bullet = new ammo(ammo.type.NORMAl, pt);
+                ammo.fired.add(bullet);
+            }
         }
     }
 }
