@@ -7,10 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.lang.reflect.Modifier;
 import java.net.URL;
 
 public class mainWindow extends JFrame{
@@ -20,7 +17,7 @@ public class mainWindow extends JFrame{
 
     public static void main(String[] args) {
 
-        if (downloadBackgroundImage() && downloadship()) {
+        if (downloadBackgroundImage() && downloadShip() && downloadBullet() && downloadEnemyShip() && downloadPowerup()) {
             JFrame f = new JFrame();
             JComponent pan = new paintPanel();
             f.setTitle("Test");
@@ -58,6 +55,8 @@ public class mainWindow extends JFrame{
             while (showStartMenu) {
                 f.repaint();
                 localPlayer.moveLocalPlayer();
+                enemyBots.addNewEnemyShip();
+                powerups.addNewPowerup();
                 sleepThread();
             }
         }
@@ -65,7 +64,7 @@ public class mainWindow extends JFrame{
 
     public static void sleepThread() {
         try {
-            Thread.sleep(5);
+            Thread.sleep(3);
         } catch (java.lang.Exception ex) {
             //Failure to sleep
         }
@@ -80,9 +79,36 @@ public class mainWindow extends JFrame{
         }
     }
 
-    private static boolean downloadship() {
+    private static boolean downloadShip() {
         try {
             paintPanel.playerShip = ImageIO.read(new URL("http://elder.comlu.com/game/ship.png"));
+            return true;
+        } catch (java.io.IOException ex) {
+            return false;
+        }
+    }
+
+    private static boolean downloadBullet() {
+        try {
+            paintPanel.bullet = ImageIO.read(new URL("http://elder.comlu.com/game/bullet.png"));
+            return true;
+        } catch (java.io.IOException ex) {
+            return false;
+        }
+    }
+
+    private static boolean downloadEnemyShip() {
+        try {
+            paintPanel.enemyShip = ImageIO.read(new URL("http://elder.comlu.com/game/enemy.png"));
+            return true;
+        } catch (java.io.IOException ex) {
+            return false;
+        }
+    }
+
+    private static boolean downloadPowerup() {
+        try {
+            paintPanel.powerupBox = ImageIO.read(new URL("http://elder.comlu.com/game/powerup.png"));
             return true;
         } catch (java.io.IOException ex) {
             return false;
