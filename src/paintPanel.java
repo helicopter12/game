@@ -1,10 +1,8 @@
 import javax.swing.JComponent;
-import java.awt.Image;
-import java.awt.Graphics;
-import java.awt.Color;
+import java.awt.*;
 
 public class paintPanel extends JComponent {
-    public static Image backgroundImage, playerShip, bullet, enemyShip, powerupBox;
+    public static Image backgroundImage, playerShip, bullet, enemyShip, powerupBox, enemyBullet;
     private double stepTick = 0;
     public static double shipSpeedPercent = 100;
 
@@ -25,11 +23,17 @@ public class paintPanel extends JComponent {
         //Draw the start menu
         drawStartMenu(g);
 
-        //Draw the keys down for debugging
-        drawKeysDown(g);
-
         //Draw bullets
         ammo.updateLocations(g);
+
+        //Draw local HUD
+        drawHUD(g);
+    }
+
+    public void drawHUD(Graphics g) {
+        g.drawString("Score: " + localPlayer.score, 10, 20);
+        g.drawString("Primary Gun (Spacebar): " + localPlayer.primaryAmmoType + "(" + ((localPlayer.primaryAmmoType.getNextFire() - System.currentTimeMillis()) >= 0 ? ((localPlayer.primaryAmmoType.getNextFire() - System.currentTimeMillis()) /1000) + 1 : "READY") + ")", 10, 40);
+        g.drawString("Secondary Gun (F Key): " + localPlayer.secondaryAmmoType + "(" + ((localPlayer.secondaryAmmoType.getNextFire() - System.currentTimeMillis()) >= 0 ? ((localPlayer.secondaryAmmoType.getNextFire() - System.currentTimeMillis()) /1000) + 1 : "READY") + ")", 10, 60);
     }
 
     public void drawStartMenu(Graphics g) {
@@ -41,6 +45,7 @@ public class paintPanel extends JComponent {
         }
     }
 
+    //Debugging only
     public void drawKeysDown(Graphics g) {
         if(keyBinding.keysDown.toString() != null) {
             int i = 20;

@@ -47,6 +47,7 @@ public class enemyBots {
                 if((bullet.location.x >= enemy.location.x) && bullet.location.x <= (enemy.location.x + paintPanel.enemyShip.getWidth(null)) && (bullet.location.y >= enemy.location.y) && (bullet.location.y <= enemy.location.y + paintPanel.enemyShip.getHeight(null))){
                     enemies.remove(enemy);
                     ammo.fired.remove(bullet);
+                    localPlayer.score += 100;
                 }
             }
         }

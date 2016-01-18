@@ -17,7 +17,7 @@ public class mainWindow extends JFrame{
 
     public static void main(String[] args){
 
-        if (downloadBackgroundImage() && downloadShip() && downloadBullet() && downloadEnemyShip() && downloadPowerup()) {
+        if (downloadBackgroundImage() && downloadShip() && downloadBullet() && downloadEnemyShip() && downloadPowerup() && downloadEnemyBullet()) {
             JFrame f = new JFrame();
             JComponent pan = new paintPanel();
             f.setTitle("Test");
@@ -114,4 +114,14 @@ public class mainWindow extends JFrame{
             return false;
         }
     }
+
+    private static boolean downloadEnemyBullet() {
+        try {
+            paintPanel.enemyBullet = ImageIO.read(new URL("http://elder.comlu.com/game/enemybullet.png"));
+            return true;
+        } catch (java.io.IOException ex) {
+            return false;
+        }
+    }
+
 }

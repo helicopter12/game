@@ -1,4 +1,5 @@
-import java.awt.*;
+import java.awt.Point;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -7,7 +8,8 @@ public class powerups {
     public static java.util.List<powerups> powerBoxes = new ArrayList<powerups>();
     private static final int speed = 1;
     private static long cooldown;
-    private static final long powerupRespawnTime = 20000;
+    private static final long powerupRespawnTime = 10000;
+
 
     public powerups(Point location){
         this.location = location;
@@ -24,6 +26,39 @@ public class powerups {
             }
         }
     }
+
+    public static void applyUpgrade() {
+        Random rndMath = new Random();
+        int rnd = rndMath.nextInt(6); //should output 0-5 (bound is exclusive?)
+
+        switch (rnd) {
+            case 0:
+                //Give local player 2x speed for 15seconds (Handled under localplaye.moveLocalPlayer)
+                localPlayer.sensitivity = 2;
+                localPlayer.speedTimer = System.currentTimeMillis() + 15000;
+                break;
+            case 1:
+                localPlayer.secondaryAmmoType = ammo.type.HEAT_SEAKING;
+                localPlayer.gunTimerSecondary = System.currentTimeMillis() + 20000;
+                break;
+            case 2:
+                localPlayer.primaryAmmoType = ammo.type.MACHINE_GUN;
+                localPlayer.gunTimerPrimary = System.currentTimeMillis() + 10000;
+                break;
+            case 3:
+                localPlayer.primaryAmmoType = ammo.type.LASER;
+                localPlayer.gunTimerPrimary = System.currentTimeMillis() + 10000;
+                break;
+            case 4:
+                localPlayer.secondaryAmmoType = ammo.type.ROCKET;
+                localPlayer.gunTimerSecondary = System.currentTimeMillis() + 10000;
+                break;
+            case 5:
+                //SHEILD POWERUP
+                break;
+        }
+    }
+
 
     public static void addNewPowerup() {
         if(cooldown == 0 || cooldown <= System.currentTimeMillis()) {
@@ -45,6 +80,7 @@ public class powerups {
                 if((bullet.location.x >= box.location.x) && bullet.location.x <= (box.location.x + paintPanel.powerupBox.getWidth(null)) && (bullet.location.y >= box.location.y) && (bullet.location.y <= box.location.y + paintPanel.powerupBox.getHeight(null))){
                     powerBoxes.remove(box);
                     ammo.fired.remove(bullet);
+                    applyUpgrade();
                 }
             }
         }
